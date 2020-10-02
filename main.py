@@ -13,10 +13,13 @@ def home():
 
     if request.method == 'POST':
 
+        content2 = request.form['content']
+        content2 = content2.replace("'","")     # strip the single quotes helping to prevent sql injection
         transaction = "INSERT INTO messages VALUES ('{}', '{}')".format(
             request.remote_addr,
-            request.form['content'],
+            content2,
         )
+        print(f"aaaaaaaaa -{transaction}-")
         c.execute(transaction)
         conn.commit()
 
